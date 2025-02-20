@@ -2,8 +2,13 @@ package App.LMS.model.Assessment;
 
 import App.LMS.enums.QuestionType;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "questions")
@@ -20,12 +25,18 @@ public class Question {
     @NotBlank(message = "Text is mandatory")
     private String text;
 
-    @NotBlank(message = "Type is mandatory")
-    private String type; // e.g., "multiple-choice", "true-false", "short-answer"
+    @Enumerated(EnumType.STRING)
+    private QuestionType type;
 
-    private QuestionType options;
-    private String correctAnswer; // Correct answer for the question
-    private String explanation; // Explanation for the correct answer
+    private Set<String> options = new HashSet<>(); // if type = multiple-options question
+
+    @NotBlank(message = "Correct Answer is mandatory")
+    private String correctAnswer;
+    private String explanation;
+
+    @Min(value = 0, message = "Score must be at least 0")
+    @Max(value = 100, message = "Score cannot exceed 100")
+    private int passingScore ;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "quiz_id", nullable = false)

@@ -45,7 +45,7 @@ public class Course {
     private Instructor instructor;
 
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Enrollment> studentCourses = new HashSet<>();
+    private Set<Enrollment> enrollments = new HashSet<>();
 
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Module> modules = new HashSet<>();
@@ -73,6 +73,15 @@ public class Course {
         updatedAt = LocalDateTime.now();
     }
 
+    public void addEnrollment(Enrollment enrollment) {
+        enrollments.add(enrollment);
+        enrollment.setCourse(this);
+    }
+
+    public void removeEnrollment(Enrollment enrollment) {
+        enrollments.remove(enrollment);
+        enrollment.setCourse(null);
+    }
     public void addModule(Module module) {
         modules.add(module);
         module.setCourse(this);

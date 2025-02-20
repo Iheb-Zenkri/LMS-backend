@@ -1,5 +1,6 @@
 package App.LMS.model.Discussion;
 
+import App.LMS.enums.NotificationType;
 import App.LMS.model.User.Student;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -29,7 +30,7 @@ public class Notification {
     private String message;
 
     @NotBlank(message = "Type is mandatory")
-    private String type; // Type of notification (e.g., "info", "alert", "reminder")
+    private NotificationType type; // Type of notification (e.g., "info", "alert", "reminder")
 
     private LocalDateTime createdAt;
 

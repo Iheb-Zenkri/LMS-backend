@@ -2,6 +2,8 @@ package App.LMS.model.Assessment;
 
 import App.LMS.model.Course.Course;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
@@ -26,7 +28,9 @@ public class Quiz {
     @NotBlank(message = "Description is mandatory")
     private String description;
 
-    private int passingScore;
+    @Setter(AccessLevel.NONE)
+    @Min(value = 0, message = "Score must be at least 0")
+    private int passingScore = 0;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "course_id", nullable = false)
@@ -39,9 +43,15 @@ public class Quiz {
     public void addQuestion(Question question) {
         questions.add(question);
         question.setQuiz(this);
+        if(question.getPassingScore() > 0){
+           this.passingScore += question.getPassingScore() ;
+        }
     }
 
     public void removeQuestion(Question question) {
+        if(question.getPassingScore() > 0){
+            this.passingScore -= question.getPassingScore() ;
+        }
         questions.remove(question);
         question.setQuiz(null);
     }

@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -22,6 +23,10 @@ import java.util.Set;
         indexes = @Index(name = "idx_instructor_email", columnList = "email", unique = true)
 )
 public class Instructor extends User {
+
+    @NotNull(message = "bio is required")
+    @Size(max = 500, message = "Bio must be at most 500 characters")
+    private String bio;
 
     @NotNull(message = "Start date is required")
     private LocalDate careerStartDate;

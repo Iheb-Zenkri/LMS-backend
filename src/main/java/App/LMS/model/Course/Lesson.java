@@ -40,6 +40,7 @@ public class Lesson {
 
     @OneToMany(mappedBy = "lesson", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<ProgressTracking> progressTracking = new HashSet<>();
+
     public void addProgressTracking(ProgressTracking progressTracking) {
         this.progressTracking.add(progressTracking);
         progressTracking.setLesson(this);
