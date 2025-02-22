@@ -3,7 +3,11 @@ package App.LMS.model.Course;
 import App.LMS.model.Enrollment.ProgressTracking;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import lombok.*;
+import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -30,8 +34,8 @@ public class Lesson {
     private String resourceLinks; // Comma-separated resource links
     private int duration;
 
-    @Column(name = "lesson_order")
-    private int order;
+    @NotNull(message = "Lesson Order is mandatory")
+    private int lessonOrder;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "module_id", nullable = false)

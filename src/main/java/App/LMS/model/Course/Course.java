@@ -7,7 +7,12 @@ import App.LMS.model.Enrollment.Enrollment;
 import App.LMS.model.User.Instructor;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import lombok.*;
+import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -30,10 +35,10 @@ public class Course {
     @NotBlank(message = "Description is mandatory")
     private String description;
 
-    @NotBlank(message = "Duration is mandatory")
+    @NotNull(message = "Duration is mandatory")
     private int duration;
 
-    @NotBlank(message = "Price is mandatory")
+    @NotNull(message = "Price is mandatory")
     private double price;
 
     @ManyToOne(fetch = FetchType.LAZY)

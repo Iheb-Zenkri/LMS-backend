@@ -2,7 +2,11 @@ package App.LMS.model.Course;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import lombok.*;
+import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -25,8 +29,8 @@ public class Module {
     @NotBlank(message = "Description is mandatory")
     private String description;
 
-    @Column(name = "module_order")
-    private int order;
+    @NotNull(message = "Module Order is mandatory")
+    private int moduleOrder;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "course_id", nullable = false)
